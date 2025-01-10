@@ -1,0 +1,34 @@
+.gradient {
+    position: relative;
+    height: auto; /* Set height to auto or remove it altogether */
+    overflow: hidden;
+  }
+  
+  .gradient::before {
+    content: "";
+    position: absolute;
+  
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    filter: blur(60px); /* Adjust the blur value as needed */
+    z-index: -100;
+    /* background: radial-gradient(circle at 40% 40%, #0267ff 30%, rgba(17,255,226,0.83) 50%, transparent 20%, transparent 100%),
+                radial-gradient(circle at 40% 40%, #0267ff 30%, rgba(17,255,226,0.83) 50%, transparent 100%, transparent 20%); */
+                /* background-color: blue; */
+  
+                background: radial-gradient(circle at 30% 70%, #237afc 30%, rgba(17,255,226,0.83) 50%, transparent 20%, transparent 100%),
+                radial-gradient(circle at 70% 70%, #237afc 30%, rgba(17,255,226,0.83) 50%, transparent 100%, transparent 20%);
+    background-size: 150% 150%;
+    background-repeat: no-repeat;
+  
+  }
+  
+  /* Media Query for Mobile Devices */
+  @media (max-width: 768px) {
+    .gradient {
+      height: auto; /* Set height to auto or remove it altogether */
+    }
+  }
+  

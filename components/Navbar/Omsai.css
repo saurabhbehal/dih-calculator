@@ -1,0 +1,51 @@
+.animated-bg {
+    animation: changeColor 5s infinite; /* Adjust the duration as needed */
+  }
+  
+  @keyframes changeColor {
+    0% {
+      background-color: #ff6a00; /* Start color */
+    }
+    25% {
+      background-color: #ff0000; /* Change color at 25% of the animation duration */
+    }
+    50% {
+      background-color: #ff8400; /* Change color at 50% of the animation duration */
+    }
+    75% {
+      background-color: #ffe600; /* Change color at 75% of the animation duration */
+    }
+    100% {
+      background-color: #ff0000; /* Back to the start color */
+    }
+  }
+
+  .nav-item h3{
+  font-size: medium;
+  font-weight: 300;
+  color: white;
+  background-color: black;
+  position: relative;
+  text-overflow:inherit;
+  padding: 4px;
+  margin-left: 5px;
+
+  }
+  
+  @media (max-width: 1610px) {
+    .nav-item h3{
+      font-size: 12px;
+      font-weight: 200;
+      color: white;
+      background-color: black;
+      position: absolute;
+      padding: 2px;
+      margin-left: 5px;
+    
+      }
+
+    
+  }
+  list li{
+    padding-top: 10px;
+}

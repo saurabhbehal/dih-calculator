@@ -1,15 +1,23 @@
-"use client";
-// SpaceContext.js
-import React, { createContext, useContext, useState, useCallback } from 'react';
+"use client"; // Ensure this file is treated as a client-side component
+
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+
 const SpaceContext = createContext();
 
 export const SpaceProvider = ({ children }) => {
-  const storedSpaceCounts = JSON.parse(localStorage.getItem('spaceCounts')) || {};
-  const [spaceCounts, setSpaceCounts] = useState(storedSpaceCounts);
+  const [spaceCounts, setSpaceCounts] = useState({});
+
+  // Initialize spaceCounts from localStorage when client-side rendering
+  useEffect(() => {
+    const storedSpaceCounts = JSON.parse(window.localStorage.getItem('spaceCounts')) || {};
+    setSpaceCounts(storedSpaceCounts);
+  }, []); // Only run once on mount
 
   const updateSpaceCounts = (newCounts) => {
     setSpaceCounts(newCounts);
-    localStorage.setItem('spaceCounts', JSON.stringify(newCounts));
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem('spaceCounts', JSON.stringify(newCounts));
+    }
   };
 
   return (

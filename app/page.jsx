@@ -9,7 +9,7 @@ import {
   Button,
   Typography,
   Container,
-} from "@mui/material"; 
+} from "@mui/material";
 // import MaxWidthWrapper from "../../components/MaxWidthWrapper";
 import FirstStep from "./calculator/FirstStep";
 import SecondStep from "./calculator/SecondStep";

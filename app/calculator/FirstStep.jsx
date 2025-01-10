@@ -24,21 +24,21 @@ const FirstStepSection = () => {
   // empty the local storage if there is already a spaceData there
   useEffect(() => {
     // Check if there is space data in local storage
-    const spaceData = JSON.parse(localStorage.getItem('spaceData'))
-    const newSpaceData = JSON.parse(localStorage.getItem('newSpaceData'))
+    const spaceData = JSON.parse(window.localStorage.getItem('spaceData'))
+    const newSpaceData = JSON.parse(window.localStorage.getItem('newSpaceData'))
     if (spaceData) {
       // Remove space data from local storage
-      localStorage.removeItem('spaceData')
+      window.localStorage.removeItem('spaceData')
     }
     if (newSpaceData) {
       // Remove new space data from local storage
-      localStorage.removeItem('newSpaceData')
+      window.localStorage.removeItem('newSpaceData')
     }
   }, [])
 
   // Save input values to local storage whenever they change
   useEffect(() => {
-    localStorage.setItem('userData', JSON.stringify(userData))
+    window.localStorage.setItem('userData', JSON.stringify(userData))
     console.log(userData)
   }, [userData])
 

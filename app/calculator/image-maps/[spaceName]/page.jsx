@@ -3,6 +3,28 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 // import { useSelector } from 'react-redux'
 import { useRouter } from 'next/navigation'
+
+// import dynamic from 'next/dynamic';
+
+// const BedroomImage = dynamic(() => import('../BedroomImage'), { ssr: false });
+// const LivingandDiningImage = dynamic(() => import('../LivingandDiningImage'), { ssr: false })
+// const KitchenImage = dynamic(() => import('../KitchenImage'), { ssr: false })
+// const KitchenLImage = dynamic(() => import('../KitchenLImage'), { ssr: false })
+// const KitchenSImage = dynamic(() => import('../KitchenSImage'), { ssr: false })
+// const KitchenPImage = dynamic(() => import('../KitchenPImage'), { ssr: false })
+// const KitchenUImage = dynamic(() => import('../KitchenUImage'), { ssr: false })
+// const BathroomImage = dynamic(() => import('../BathroomImage'), { ssr: false })
+// const MandirRoomImage = dynamic(() => import('../MandirRoomImage'), { ssr: false })
+// const StoreRoomImage = dynamic(() => import('../StoreRoomImage'), { ssr: false })
+// const StudyRoomImage = dynamic(() => import('../StudyRoomImage'), { ssr: false })
+// const LivingRoomImage = dynamic(() => import('../LivingRoomImage'), { ssr: false })
+// const EntranceRoomImage = dynamic(() => import('../EntranceRoomImage'), { ssr: false })
+// const BalconyImage = dynamic(() => import('../BalconyImage'), { ssr: false })
+// const PassageImage = dynamic(() => import('../PassageImage'), { ssr: false })
+// const DiningRoom = dynamic(() => import('../DiningRoomImage'), { ssr: false });
+
+
+
 import BedroomImage from '../BedroomImage'
 import LivingandDiningImage from '../LivingandDiningImage'
 import KitchenImage from '../KitchenImage'
@@ -19,6 +41,8 @@ import EntranceRoomImage from '../EntranceRoomImage'
 import BalconyImage from '../BalconyImage'
 import PassageImage from '../PassageImage'
 import DiningRoom from '../DiningRoomImage'
+
+
 import MaxWidthWrapper from '../../../../components/MaxWidthWrapper'
 import { ArrowLeft } from 'lucide-react'
 const Page = ({ params }) => {
@@ -66,32 +90,32 @@ const Page = ({ params }) => {
         return <BedroomImage data={spaceData} name={spaceName} />
       case 'Master':
         return <BedroomImage data={spaceData} name={spaceName} />
-      case 'Living':
-        if (spaceName.includes('Living and Dining')) {
-          return <LivingandDiningImage data={spaceData} name={spaceName} />
-        } else {
-          return <LivingRoomImage data={spaceData} name={spaceName} />
-        }
+      // case 'Living':
+      //   if (spaceName.includes('Living and Dining')) {
+      //     return <LivingandDiningImage data={spaceData} name={spaceName} />
+      //   } else {
+      //     return <LivingRoomImage data={spaceData} name={spaceName} />
+      //   }
       // case 'Kitchen':
       //   return <KitchenImage data={spaceData} name={spaceName} />
-      case 'Bathroom':
-        return <BathroomImage data={spaceData} name={spaceName} />
-      case 'Mandir':
-        return <MandirRoomImage data={spaceData} name={spaceName} />
-      case 'Store':
-        return <StoreRoomImage data={spaceData} name={spaceName} />
-      case 'Servant':
-        return <StoreRoomImage data={spaceData} name={spaceName} />
-      case 'Study':
-        return <StudyRoomImage data={spaceData} name={spaceName} />
+      // case 'Bathroom':
+      //   return <BathroomImage data={spaceData} name={spaceName} />
+      // case 'Mandir':
+      //   return <MandirRoomImage data={spaceData} name={spaceName} />
+      // case 'Store':
+        // return <StoreRoomImage data={spaceData} name={spaceName} />
+      // case 'Servant':
+      //   return <StoreRoomImage data={spaceData} name={spaceName} />
+      // case 'Study':
+      //   return <StudyRoomImage data={spaceData} name={spaceName} />
       // case 'Living':
       //   return <LivingRoomImage data={spaceData} name={spaceName} />
       case 'Entrance':
         return <EntranceRoomImage data={spaceData} name={spaceName} />
       case 'Balcony':
         return <BalconyImage data={spaceData} name={spaceName} />
-      case 'Passage':
-        return <PassageImage data={spaceData} name={spaceName} />
+      // case 'Passage':
+      //   return <PassageImage data={spaceData} name={spaceName} />
       case 'Dining':
         return <DiningRoom data={spaceData} name={spaceName} />
       case 'Straight':

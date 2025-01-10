@@ -270,7 +270,7 @@ const SvgMap = ({ data, name }) => {
     }
   }
 
-  const handleSave = () => {
+  if (typeof window !== "undefined") {const handleSave = () => {
     // Retrieve existing spaceData from localStorage
     const localStorageSpaceData = localStorage.getItem('spaceData')
 
@@ -305,7 +305,7 @@ const SvgMap = ({ data, name }) => {
       alert('Space data saved successfully!')
     }
     router.push('/calculator?step=2')
-  }
+  }}
 
 
 

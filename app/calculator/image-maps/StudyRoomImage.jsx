@@ -97,7 +97,7 @@ const SvgMap = ({ data, name }) => {
   console.log('data: ', data)
   console.log('name: ', name)
   const [selectedPolygon, setSelectedPolygon] = useState([])
-    const [selectedPolygonArea, setSelectedPolygonArea] = useState([])
+  const [selectedPolygonArea, setSelectedPolygonArea] = useState([])
   const [selectedPackage, setSelectedPackage] = useState('premium') // Default to premium
   const [spaceSquareFootage, setSpaceSquareFootage] = useState({}) // New state for square footage
 
@@ -156,128 +156,129 @@ const SvgMap = ({ data, name }) => {
     }
   }
 
-    const handlePolygonClick = (polygonId) => {
-      const isSelected = selectedPolygon.includes(polygonId)
+  const handlePolygonClick = (polygonId) => {
+    const isSelected = selectedPolygon.includes(polygonId)
 
-      // Check if the polygon is already selected
-      if (isSelected) {
-        // Polygon is already selected, remove it from the selected polygons
-        setSelectedPolygon((prevSelected) =>
-          prevSelected.filter((id) => id !== polygonId)
-        )
-
-        // Remove the polygon's area from selectedPolygonArea
-        setSelectedPolygonArea((prevSelectedArea) =>
-          prevSelectedArea.filter((item) => Object.keys(item)[0] !== polygonId)
-        )
-
-        // Subtract the price of the deselected polygon from the room price
-        const priceOfDeselectedPolygon = calculateSpacePrice(
-          polygonId,
-          selectedPackage
-        )
-        setRoomPrice(
-          (prevRoomPrice) =>
-            prevRoomPrice - parseFloat(priceOfDeselectedPolygon)
-        )
-      } else {
-        // Polygon is not selected, add it to the selected polygons
-        setSelectedPolygon((prevSelected) => [...prevSelected, polygonId])
-
-        // Add the polygon's area to selectedPolygonArea
-        setSelectedPolygonArea((prevSelectedArea) => [
-          ...prevSelectedArea,
-          { [polygonId]: initialSquareFootage[polygonId] || '' },
-        ])
-
-        // Add the price of the selected polygon to the room price
-        const priceOfSelectedPolygon = calculateSpacePrice(
-          polygonId,
-          selectedPackage
-        )
-        setRoomPrice(
-          (prevRoomPrice) => prevRoomPrice + parseFloat(priceOfSelectedPolygon)
-        )
-      }
-
-      // Update the data
-      updateData()
-    }
-
-    const handleEditSquareFootage = (polygonId) => {
-      const newSquareFootage = prompt(
-        `Enter new square footage for ${polygonId}:`,
-        editableSquareFootage[polygonId]
+    // Check if the polygon is already selected
+    if (isSelected) {
+      // Polygon is already selected, remove it from the selected polygons
+      setSelectedPolygon((prevSelected) =>
+        prevSelected.filter((id) => id !== polygonId)
       )
 
-      if (!isNaN(newSquareFootage) && newSquareFootage !== null) {
-        const updatedSquareFootage = {
-          ...editableSquareFootage,
-          [polygonId]: parseFloat(newSquareFootage),
-        }
-        setEditableSquareFootage(updatedSquareFootage)
+      // Remove the polygon's area from selectedPolygonArea
+      setSelectedPolygonArea((prevSelectedArea) =>
+        prevSelectedArea.filter((item) => Object.keys(item)[0] !== polygonId)
+      )
 
-        // Update selectedPolygonArea with edited area
-        setSelectedPolygonArea((prevSelectedArea) =>
-          prevSelectedArea.map((item) =>
-            Object.keys(item)[0] === polygonId
-              ? { [polygonId]: parseFloat(newSquareFootage) }
-              : item
-          )
-        )
+      // Subtract the price of the deselected polygon from the room price
+      const priceOfDeselectedPolygon = calculateSpacePrice(
+        polygonId,
+        selectedPackage
+      )
+      setRoomPrice(
+        (prevRoomPrice) =>
+          prevRoomPrice - parseFloat(priceOfDeselectedPolygon)
+      )
+    } else {
+      // Polygon is not selected, add it to the selected polygons
+      setSelectedPolygon((prevSelected) => [...prevSelected, polygonId])
 
-        // Recalculate room price
-        const priceOfSelectedPolygon = calculateSpacePrice(
-          polygonId,
-          selectedPackage
-        )
-        const updatedRoomPrice =
-          parseFloat(roomPrice) - parseFloat(priceOfSelectedPolygon) // subtract old price
-        setRoomPrice(
-          updatedRoomPrice +
-            parseFloat(newSquareFootage) *
-              parseFloat(pricing[selectedPackage][polygonId].pricePerSqFt)
-        ) // add new price
-        updateData() // Update the data after room price is updated
-      }
+      // Add the polygon's area to selectedPolygonArea
+      setSelectedPolygonArea((prevSelectedArea) => [
+        ...prevSelectedArea,
+        { [polygonId]: initialSquareFootage[polygonId] || '' },
+      ])
+
+      // Add the price of the selected polygon to the room price
+      const priceOfSelectedPolygon = calculateSpacePrice(
+        polygonId,
+        selectedPackage
+      )
+      setRoomPrice(
+        (prevRoomPrice) => prevRoomPrice + parseFloat(priceOfSelectedPolygon)
+      )
     }
 
-    const handleSave = () => {
-      // Retrieve existing spaceData from localStorage
-      const localStorageSpaceData = localStorage.getItem('spaceData')
+    // Update the data
+    updateData()
+  }
 
-      // Check if there is existing spaceData in localStorage
-      if (localStorageSpaceData) {
-        // Parse the existing spaceData
-        const parsedSpaceData = JSON.parse(localStorageSpaceData)
+  const handleEditSquareFootage = (polygonId) => {
+    const newSquareFootage = prompt(
+      `Enter new square footage for ${polygonId}:`,
+      editableSquareFootage[polygonId]
+    )
 
-        // Find the index of the item with the same name as the current page
-        const index = parsedSpaceData.findIndex((item) => item.name === name)
+    if (!isNaN(newSquareFootage) && newSquareFootage !== null) {
+      const updatedSquareFootage = {
+        ...editableSquareFootage,
+        [polygonId]: parseFloat(newSquareFootage),
+      }
+      setEditableSquareFootage(updatedSquareFootage)
 
-        // If an item with the same name exists, update its data
-        if (index !== -1) {
-          parsedSpaceData[index] = {
-            ...parsedSpaceData[index],
-            selectedPolygonArea,
-            selectedPackage,
-            roomPrice,
-          }
+      // Update selectedPolygonArea with edited area
+      setSelectedPolygonArea((prevSelectedArea) =>
+        prevSelectedArea.map((item) =>
+          Object.keys(item)[0] === polygonId
+            ? { [polygonId]: parseFloat(newSquareFootage) }
+            : item
+        )
+      )
 
-          // Update the localStorage with the updated spaceData
-          localStorage.setItem('newSpaceData', JSON.stringify(parsedSpaceData))
-          // localStorage.setItem('areaDetails', JSON.stringify(selectedPolygonArea))
-          alert('Space data updated successfully!')
-        } else {
-          // If no item with the same name exists, show an alert
-          alert(`No data found for ${name} in localStorage`)
+      // Recalculate room price
+      const priceOfSelectedPolygon = calculateSpacePrice(
+        polygonId,
+        selectedPackage
+      )
+      const updatedRoomPrice =
+        parseFloat(roomPrice) - parseFloat(priceOfSelectedPolygon) // subtract old price
+      setRoomPrice(
+        updatedRoomPrice +
+        parseFloat(newSquareFootage) *
+        parseFloat(pricing[selectedPackage][polygonId].pricePerSqFt)
+      ) // add new price
+      updateData() // Update the data after room price is updated
+    }
+  }
+
+  const handleSave = () => {
+    // Retrieve existing spaceData from localStorage
+    const localStorageSpaceData = localStorage.getItem('spaceData')
+
+    // Check if there is existing spaceData in localStorage
+    if (localStorageSpaceData) {
+      // Parse the existing spaceData
+      const parsedSpaceData = JSON.parse(localStorageSpaceData)
+
+      // Find the index of the item with the same name as the current page
+      const index = parsedSpaceData.findIndex((item) => item.name === name)
+
+      // If an item with the same name exists, update its data
+      if (index !== -1) {
+        parsedSpaceData[index] = {
+          ...parsedSpaceData[index],
+          selectedPolygonArea,
+          selectedPackage,
+          roomPrice,
         }
+
+        // Update the localStorage with the updated spaceData
+        localStorage.setItem('newSpaceData', JSON.stringify(parsedSpaceData))
+        // localStorage.setItem('areaDetails', JSON.stringify(selectedPolygonArea))
+        alert('Space data updated successfully!')
       } else {
-        // If no spaceData exists in localStorage, set it with the current data
-        localStorage.setItem('newSpaceData', JSON.stringify(spaceData))
-        alert('Space data saved successfully!')
+        // If no item with the same name exists, show an alert
+        alert(`No data found for ${name} in localStorage`)
       }
-      router.push('/calculator?step=2')
+    } else {
+      // If no spaceData exists in localStorage, set it with the current data
+      localStorage.setItem('newSpaceData', JSON.stringify(spaceData))
+      alert('Space data saved successfully!')
     }
+    // router.push('/calculator?step=2')
+    router.push('/?step=2')
+  }
 
 
   const handleSquareFootageChange = (polygonId, value) => {
@@ -309,13 +310,11 @@ const SvgMap = ({ data, name }) => {
       <button
         key={tabName}
         onClick={() => handleTabChange(tabName)}
-        className={`border px-4 py-3 text-base focus:outline-none rounded-lg ${
-          isActive ? 'bg-green-500 text-white' : 'bg-white text-black'
-        } ${
-          isActive
+        className={`border px-4 py-3 text-base focus:outline-none rounded-lg ${isActive ? 'bg-green-500 text-white' : 'bg-white text-black'
+          } ${isActive
             ? 'hover:bg-green-600 hover:text-white'
             : 'hover:bg-gray-200 hover:text-black'
-        }`}
+          }`}
       >
         {tabName}
       </button>
@@ -671,12 +670,12 @@ const SvgMap = ({ data, name }) => {
                   </span>
                 )}
                 {polygon === 'FalseCeiling' ||
-                polygon === 'Flooring' ||
-                polygon === 'Walls' ||
-                polygon === 'crockeryUnit' ||
-                polygon == 'upvcWindow' ||
-                polygon === 'falseCeiling' ||
-                polygon === 'StudyTables' ? (
+                  polygon === 'Flooring' ||
+                  polygon === 'Walls' ||
+                  polygon === 'crockeryUnit' ||
+                  polygon == 'upvcWindow' ||
+                  polygon === 'falseCeiling' ||
+                  polygon === 'StudyTables' ? (
                   <span
                     style={{ cursor: 'pointer', fontSize: '12px' }}
                     onClick={() => handleEditSquareFootage(polygon)}

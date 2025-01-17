@@ -147,7 +147,7 @@ const SvgMap = ({ data, name }) => {
   console.log('data: ', data)
   console.log('name: ', name)
   const [selectedPolygon, setSelectedPolygon] = useState([])
-    const [selectedPolygonArea, setSelectedPolygonArea] = useState([])
+  const [selectedPolygonArea, setSelectedPolygonArea] = useState([])
   const [selectedPackage, setSelectedPackage] = useState('premium') // Default to premium
   const [spaceSquareFootage, setSpaceSquareFootage] = useState({}) // New state for square footage
 
@@ -189,7 +189,7 @@ const SvgMap = ({ data, name }) => {
   const [editableSquareFootage, setEditableSquareFootage] =
     useState(initialSquareFootage)
 
- 
+
 
   const calculateSpacePrice = (polygonId, selectedPackage) => {
     const component = pricing[selectedPackage]?.[polygonId]
@@ -284,14 +284,16 @@ const SvgMap = ({ data, name }) => {
         parseFloat(roomPrice) - parseFloat(priceOfSelectedPolygon) // subtract old price
       setRoomPrice(
         updatedRoomPrice +
-          parseFloat(newSquareFootage) *
-            parseFloat(pricing[selectedPackage][polygonId].pricePerSqFt)
+        parseFloat(newSquareFootage) *
+        parseFloat(pricing[selectedPackage][polygonId].pricePerSqFt)
       ) // add new price
       updateData() // Update the data after room price is updated
     }
   }
 
-  if (typeof window !== "undefined") { const handleSave = () => {
+  // if (typeof window !== "undefined") { 
+  // }
+  const handleSave = () => {
     // Retrieve existing spaceData from localStorage
     const localStorageSpaceData = localStorage.getItem('spaceData')
 
@@ -325,8 +327,9 @@ const SvgMap = ({ data, name }) => {
       localStorage.setItem('newSpaceData', JSON.stringify(spaceData))
       alert('Space data saved successfully!')
     }
-    router.push('/calculator?step=2')
-  }}
+    // router.push('/calculator?step=2')
+    router.push('/?step=2')
+  }
 
   const handleSquareFootageChange = (polygonId, value) => {
     setSpaceSquareFootage((prevSquareFootage) => ({
@@ -357,20 +360,18 @@ const SvgMap = ({ data, name }) => {
       <button
         key={tabName}
         onClick={() => handleTabChange(tabName)}
-        className={`border px-4 py-3 text-base focus:outline-none rounded-lg ${
-          isActive ? 'bg-green-500 text-white' : 'bg-white text-black'
-        } ${
-          isActive
+        className={`border px-4 py-3 text-base focus:outline-none rounded-lg ${isActive ? 'bg-green-500 text-white' : 'bg-white text-black'
+          } ${isActive
             ? 'hover:bg-green-600 hover:text-white'
             : 'hover:bg-gray-200 hover:text-black'
-        }`}
+          }`}
       >
         {tabName}
       </button>
     )
   }
 
- 
+
 
 
 
@@ -918,11 +919,11 @@ const SvgMap = ({ data, name }) => {
                   </span>
                 )}
                 {polygon === 'wardrobe' ||
-                polygon === 'flooring' ||
-                polygon === 'walls' ||
-                polygon === 'tvpanel' ||
-                polygon === 'upvcWindow' ||
-                polygon === 'falseCeiling' ? (
+                  polygon === 'flooring' ||
+                  polygon === 'walls' ||
+                  polygon === 'tvpanel' ||
+                  polygon === 'upvcWindow' ||
+                  polygon === 'falseCeiling' ? (
                   <span
                     style={{
                       cursor: 'pointer',

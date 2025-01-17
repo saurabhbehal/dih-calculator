@@ -266,7 +266,8 @@ const SvgMap = ({ data, name }) => {
         localStorage.setItem('newSpaceData', JSON.stringify(spaceData))
         alert('Space data saved successfully!')
       }
-      router.push('/calculator?step=2')
+      // router.push('/calculator?step=2')
+      router.push('/?step=2')
     }
 
 

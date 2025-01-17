@@ -32,7 +32,7 @@ const SvgMap = ({ data, name }) => {
       upvcWindow: { pricePerSqFt: 1180 },
       falseCeiling: { pricePerSqFt: 205 },
       Electrical: { price: 14500 },
-      Plumbing: { price: 22000},
+      Plumbing: { price: 22000 },
       'Base Cabinets Panel 1': { pricePerSqFt: 1980 },
       'Wall Cabinets Panel 1': { pricePerSqFt: 1980 },
       'Loft Cabinets Panel 1': { pricePerSqFt: 1680 },
@@ -201,7 +201,7 @@ const SvgMap = ({ data, name }) => {
     falseCeiling: 80,
     Flooring: 80,
     upvcWindow: 20,
-    
+
     walls: 65,
     CounterTop: 96,
     KitchenWalls: 196,
@@ -216,7 +216,7 @@ const SvgMap = ({ data, name }) => {
   console.log('data: ', data)
   console.log('name: ', name)
   const [selectedPolygon, setSelectedPolygon] = useState([])
-    const [selectedPolygonArea, setSelectedPolygonArea] = useState([])
+  const [selectedPolygonArea, setSelectedPolygonArea] = useState([])
   const [selectedPackage, setSelectedPackage] = useState('premium') // Default to premium
   const [spaceSquareFootage, setSpaceSquareFootage] = useState({}) // New state for square footage
 
@@ -354,14 +354,16 @@ const SvgMap = ({ data, name }) => {
         parseFloat(roomPrice) - parseFloat(priceOfSelectedPolygon) // subtract old price
       setRoomPrice(
         updatedRoomPrice +
-          parseFloat(newSquareFootage) *
-            parseFloat(pricing[selectedPackage][polygonId].pricePerSqFt)
+        parseFloat(newSquareFootage) *
+        parseFloat(pricing[selectedPackage][polygonId].pricePerSqFt)
       ) // add new price
       updateData() // Update the data after room price is updated
     }
   }
 
-  if (typeof window !== "undefined") {const handleSave = () => {
+  // if (typeof window !== "undefined") {
+  // }
+  const handleSave = () => {
     // Retrieve existing spaceData from localStorage
     const localStorageSpaceData = localStorage.getItem('spaceData')
 
@@ -395,8 +397,9 @@ const SvgMap = ({ data, name }) => {
       localStorage.setItem('newSpaceData', JSON.stringify(spaceData))
       alert('Space data saved successfully!')
     }
-    router.push('/calculator?step=2')
-  }}
+    // router.push('/calculator?step=2')
+    router.push('/?step=2')
+  }
 
 
   const handleSquareFootageChange = (polygonId, value) => {
@@ -428,13 +431,11 @@ const SvgMap = ({ data, name }) => {
       <button
         key={tabName}
         onClick={() => handleTabChange(tabName)}
-        className={`border px-4 py-3 text-base focus:outline-none rounded-lg ${
-          isActive ? 'bg-green-500 text-white' : 'bg-white text-black'
-        } ${
-          isActive
+        className={`border px-4 py-3 text-base focus:outline-none rounded-lg ${isActive ? 'bg-green-500 text-white' : 'bg-white text-black'
+          } ${isActive
             ? 'hover:bg-green-600 hover:text-white'
             : 'hover:bg-gray-200 hover:text-black'
-        }`}
+          }`}
       >
         {tabName}
       </button>
@@ -880,7 +881,7 @@ const SvgMap = ({ data, name }) => {
               }}
             >
               <div className="float-left">
-              <span className="font-bold text-lg capitalize">{polygon} </span>
+                <span className="font-bold text-lg capitalize">{polygon} </span>
                 {editableSquareFootage[polygon] && (
                   <span style={{ fontSize: '12px' }}>
                     {' '}
@@ -888,15 +889,15 @@ const SvgMap = ({ data, name }) => {
                   </span>
                 )}
                 {polygon === 'CounterTop' ||
-                polygon === 'Flooring' ||
-                polygon === 'walls' ||
-                polygon === 'KitchenWalls' ||
-                polygon == 'upvcWindow' ||
-                polygon === 'falseCeiling' ||
-                polygon === 'Base Cabinets Panel 1' ||
-                polygon === 'Wall Cabinets Panel 1' ||
-                polygon === 'Loft Cabinets Panel 1' ||
-                polygon === 'KitchenCabinets' ? (
+                  polygon === 'Flooring' ||
+                  polygon === 'walls' ||
+                  polygon === 'KitchenWalls' ||
+                  polygon == 'upvcWindow' ||
+                  polygon === 'falseCeiling' ||
+                  polygon === 'Base Cabinets Panel 1' ||
+                  polygon === 'Wall Cabinets Panel 1' ||
+                  polygon === 'Loft Cabinets Panel 1' ||
+                  polygon === 'KitchenCabinets' ? (
                   <span
                     style={{ cursor: 'pointer', fontSize: '12px' }}
                     onClick={() => handleEditSquareFootage(polygon)}

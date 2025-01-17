@@ -249,42 +249,45 @@ const SvgMap = ({ data, name }) => {
     }
   }
 
-  if (typeof window !== "undefined") { const handleSave = () => {
-    // Retrieve existing spaceData from localStorage
-    const localStorageSpaceData = localStorage.getItem('spaceData')
+  // if (typeof window !== "undefined") {
+  // }
+  const handleSave = () => {
+ // Retrieve existing spaceData from localStorage
+ const localStorageSpaceData = localStorage.getItem('spaceData')
 
-    // Check if there is existing spaceData in localStorage
-    if (localStorageSpaceData) {
-      // Parse the existing spaceData
-      const parsedSpaceData = JSON.parse(localStorageSpaceData)
+ // Check if there is existing spaceData in localStorage
+ if (localStorageSpaceData) {
+   // Parse the existing spaceData
+   const parsedSpaceData = JSON.parse(localStorageSpaceData)
 
-      // Find the index of the item with the same name as the current page
-      const index = parsedSpaceData.findIndex((item) => item.name === name)
+   // Find the index of the item with the same name as the current page
+   const index = parsedSpaceData.findIndex((item) => item.name === name)
 
-      // If an item with the same name exists, update its data
-      if (index !== -1) {
-        parsedSpaceData[index] = {
-          ...parsedSpaceData[index],
-          selectedPolygonArea,
-          selectedPackage,
-          roomPrice,
-        }
+   // If an item with the same name exists, update its data
+   if (index !== -1) {
+     parsedSpaceData[index] = {
+       ...parsedSpaceData[index],
+       selectedPolygonArea,
+       selectedPackage,
+       roomPrice,
+     }
 
-        // Update the localStorage with the updated spaceData
-        localStorage.setItem('newSpaceData', JSON.stringify(parsedSpaceData))
-        // localStorage.setItem('areaDetails', JSON.stringify(selectedPolygonArea))
-        alert('Space data updated successfully!')
-      } else {
-        // If no item with the same name exists, show an alert
-        alert(`No data found for ${name} in localStorage`)
-      }
-    } else {
-      // If no spaceData exists in localStorage, set it with the current data
-      localStorage.setItem('newSpaceData', JSON.stringify(spaceData))
-      alert('Space data saved successfully!')
-    }
-    router.push('/calculator?step=2')
-  }}
+     // Update the localStorage with the updated spaceData
+     localStorage.setItem('newSpaceData', JSON.stringify(parsedSpaceData))
+     // localStorage.setItem('areaDetails', JSON.stringify(selectedPolygonArea))
+     alert('Space data updated successfully!')
+   } else {
+     // If no item with the same name exists, show an alert
+     alert(`No data found for ${name} in localStorage`)
+   }
+ } else {
+   // If no spaceData exists in localStorage, set it with the current data
+   localStorage.setItem('newSpaceData', JSON.stringify(spaceData))
+   alert('Space data saved successfully!')
+ }
+//  router.push('/calculator?step=2')
+ router.push('/?step=2')
+}
 
   
   const handleSquareFootageChange = (polygonId, value) => {

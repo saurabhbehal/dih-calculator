@@ -729,7 +729,7 @@ const SvgMap = ({ data, name }) => {
                     style={{
                       fontSize: '14px',
                       marginTop: '5px',
-                      width: '650px',
+                      // width: '650px',
                     }}
                   >
                     {descriptions[selectedPackage]?.[polygon]}

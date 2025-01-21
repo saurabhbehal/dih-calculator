@@ -304,12 +304,12 @@ const FourthStep = () => {
             key === 'selectedOptionSet1'
               ? 'House Type'
               : key === 'selectedOptionSet2'
-              ? 'Number of Bedrooms'
-              : key === 'selectedOptionSet3'
-              ? 'New or Renovation'
-              : key === 'textInput'
-              ? 'City'
-              : key.replace(/([A-Z])/g, ' $1').trim(),
+                ? 'Number of Bedrooms'
+                : key === 'selectedOptionSet3'
+                  ? 'New or Renovation'
+                  : key === 'textInput'
+                    ? 'City'
+                    : key.replace(/([A-Z])/g, ' $1').trim(),
           value: value,
         })),
       yourRequirements: spaceData.map((room) => ({
@@ -319,10 +319,10 @@ const FourthStep = () => {
         roomPriceEstimation: room.roomPrice ? `Rs. ${room.roomPrice}` : '-',
         selectedFeatures: room.selectedPolygon
           ? room.selectedPolygon
-              .map(
-                (feature) => feature.charAt(0).toUpperCase() + feature.slice(1)
-              )
-              .join(', ')
+            .map(
+              (feature) => feature.charAt(0).toUpperCase() + feature.slice(1)
+            )
+            .join(', ')
           : '-',
       })),
       totalRoomPrice: totalRoomPrice,
@@ -330,27 +330,6 @@ const FourthStep = () => {
 
     const formDataJSON = JSON.stringify(formData) // Stringify formData
     const pdfDataJSON = JSON.stringify(pdfData) // Stringify pdfData
-
-    try {
-      // Send form data to the server to handle email sending
-      const response = await axios.post(
-        'https://m.designindianhomes.com/CalculatortForm',
-        {
-          formData: formDataJSON, // Send stringified formData
-          pdfData: pdfDataJSON, // Send stringified pdfData
-        }
-      )
-
-      if (response.status === 200) {
-        console.log('Form data submitted successfully')
-      } else {
-        console.error('Failed to submit form data')
-        return // Exit function if form submission fails
-      }
-    } catch (error) {
-      console.error('Error submitting form:', error)
-      return // Exit function if an error occurs
-    }
 
     // Generate and download PDF
     const doc = new jsPDF()
@@ -376,12 +355,12 @@ const FourthStep = () => {
             key === 'propertyType'
               ? 'House Type'
               : key === 'numberOfRooms'
-              ? 'Number of Bedrooms'
-              : key === 'interiorType'
-              ? 'New or Renovation'
-              : key === 'city'
-              ? 'City'
-              : key.replace(/([A-Z])/g, ' $1').trim(),
+                ? 'Number of Bedrooms'
+                : key === 'interiorType'
+                  ? 'New or Renovation'
+                  : key === 'city'
+                    ? 'City'
+                    : key.replace(/([A-Z])/g, ' $1').trim(),
           Value: value,
         })),
       { Label: 'Total Price', Value: `Rs. ${totalRoomPrice}` }, // Add total price row
@@ -427,9 +406,8 @@ const FourthStep = () => {
           },
           {
             dataKey: 'description',
-            header: `Description - ${
-              space.selectedPackage.toUpperCase() || '-'
-            } Package, Total Room Price Estimate - ${space.roomPrice} Rs.`,
+            header: `Description - ${space.selectedPackage.toUpperCase() || '-'
+              } Package, Total Room Price Estimate - ${space.roomPrice} Rs.`,
             width: columnWidth, // Set the width of the description column
           },
           {
@@ -467,7 +445,7 @@ const FourthStep = () => {
           [space.name]: Object.keys(polygon)[0].toUpperCase(),
           description:
             descriptions[space.selectedPackage][
-              Object.keys(polygon)[0].toLowerCase()
+            Object.keys(polygon)[0].toLowerCase()
             ] || 'Description not found',
           area: `${polygon[Object.keys(polygon)[0]]}-sqft`,
         }))
@@ -504,7 +482,28 @@ const FourthStep = () => {
     // Save the PDF
     doc.save('Project_Scope.pdf')
 
-    setFormSubmitted(true)
+    setFormSubmitted(true);
+
+    // Send form data to the server to handle email sending
+    try {
+      const response = await axios.post(
+        'https://m.designindianhomes.com/CalculatortForm',
+        {
+          formData: formDataJSON, // Send stringified formData
+          pdfData: pdfDataJSON, // Send stringified pdfData
+        }
+      )
+
+      if (response.status === 200) {
+        console.log('Form data submitted successfully')
+      } else {
+        console.error('Failed to submit form data')
+        return // Exit function if form submission fails
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error)
+      return // Exit function if an error occurs
+    }
   }
 
   const handleClose = () => {
